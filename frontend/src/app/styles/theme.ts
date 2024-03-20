@@ -1,25 +1,15 @@
-"use client";
-import { createTheme } from "@mui/material/styles";
-import { GeistSans } from "geist/font/sans";
+import { ThemeConfig } from "antd";
 
-const theme = createTheme({
-  palette: {
-    mode: "light",
-  },
-  typography: {
-    fontFamily: GeistSans.style.fontFamily,
+export const antTheme: ThemeConfig = {
+  token: {
+    colorPrimaryBorder: "#f3f4f6",
   },
   components: {
-    MuiAlert: {
-      styleOverrides: {
-        root: ({ ownerState }) => ({
-          ...(ownerState.severity === "info" && {
-            backgroundColor: "#60a5fa",
-          }),
-        }),
-      },
+    Menu: {
+      activeBarBorderWidth: 10,
+      horizontalItemHoverBg: "#f3f4f6",
+      horizontalItemBorderRadius: 999,
+      horizontalItemHoverColor: "transparent",
     },
   },
-});
-
-export default theme;
+};
