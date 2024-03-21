@@ -1,7 +1,4 @@
 import "@/src/app/styles/globals.css";
-import { antTheme } from "@/src/app/styles/theme";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { ConfigProvider } from "antd";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 
@@ -17,11 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={GeistSans.className}>
-        <AntdRegistry>
-          <ConfigProvider theme={antTheme}>{children}</ConfigProvider>
-        </AntdRegistry>
-      </body>
+      <body className={GeistSans.className}>{children}</body>
     </html>
   );
 }
