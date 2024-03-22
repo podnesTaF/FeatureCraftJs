@@ -2,30 +2,11 @@ import {
   AudioLines,
   Cloudy,
   HandCoins,
-  LucideIcon,
   PanelsTopLeft,
   ShieldX,
   Telescope,
 } from "lucide-react";
-
-interface MenuItem {
-  label: string;
-  href?: string;
-  modules?: {
-    label?: string;
-    align?: "left" | "right" | "center";
-    items: SubMenuItem[];
-  }[];
-}
-
-interface SubMenuItem {
-  itemWidth?: "w-1/2" | "w-full";
-  title: string;
-  description?: string;
-  href: string;
-  icon?: LucideIcon;
-  align?: "left" | "right" | "center";
-}
+import { MenuItem } from "./header.types";
 
 export const getMenuItems = (): MenuItem[] => {
   return [
