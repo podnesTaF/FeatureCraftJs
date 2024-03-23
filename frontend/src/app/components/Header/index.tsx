@@ -33,27 +33,29 @@ export const Header = () => {
           >
             <AlignLeft size={24} />
           </Button>
-          <Image
-            height={32}
-            width={32}
-            className="h-6 w-6 2xl:hidden"
-            src={"/logo/logo-short.svg"}
-            alt="Logo"
-          />
-          <Image
-            height={28}
-            width={400}
-            className="h-6 w-auto hidden 2xl:block"
-            src={"/logo/logo-inline.svg"}
-            alt="Logo"
-          />
+          <Link href={"/"} passHref>
+            <Image
+              height={32}
+              width={32}
+              className="h-6 w-6 2xl:hidden"
+              src={"/logo/logo-short.svg"}
+              alt="Logo"
+            />
+            <Image
+              height={28}
+              width={400}
+              className="h-6 w-auto hidden 2xl:block"
+              src={"/logo/logo-inline.svg"}
+              alt="Logo"
+            />
+          </Link>
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList className="w-full">
               {getMenuItems().map((item, i) => (
                 <NavigationMenuItem key={i} className="justify-start relative">
                   {item.href ? (
                     <Link
-                      className=" justify-start"
+                      className="justify-start"
                       href={item.href}
                       legacyBehavior
                       passHref
@@ -118,6 +120,25 @@ export const Header = () => {
               className="rounded-full h-10 pr-4 pl-9  hidden sm:block w-full bg-gray-100 placeholder:text-primary font-medium"
             />
           </div>
+          <Link
+            className=" justify-start rounded-full"
+            href={"/auth/login"}
+            legacyBehavior
+            passHref
+          >
+            <Button variant={"ghost"} className={`rounded-full justify-start`}>
+              Login
+            </Button>
+          </Link>
+
+          <Link
+            className=" justify-start"
+            href={"/auth/signup"}
+            legacyBehavior
+            passHref
+          >
+            <Button className={`!rounded-full justify-start`}>Signup</Button>
+          </Link>
           <IconButton className="sm:hidden">
             <MagnifyingGlassIcon className="w-6 h-6" />
           </IconButton>
