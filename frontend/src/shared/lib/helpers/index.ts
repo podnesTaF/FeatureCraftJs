@@ -1,0 +1,1 @@
+export { getTokenFromServerSideCookie } from "./getTokenFromServerSideCookie";

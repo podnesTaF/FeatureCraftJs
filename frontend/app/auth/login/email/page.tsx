@@ -1,4 +1,4 @@
-import { EmailLogin } from "@/src/pages/auth/login/email";
+import { EmailLogin } from "@/src/pages/auth/login/EmailLogin";
 
 const EmailLoginPage = () => {
   return <EmailLogin />;

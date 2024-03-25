@@ -1,22 +1,19 @@
 "use client";
 
-import { SignupSchema } from "@/src/entities/main";
 import {
   GitHubSignInButton,
   GoogleSignInButton,
   SignUpForm,
+  useSignUp,
 } from "@/src/features/main";
 import { useState } from "react";
 
 export const SignUp = () => {
+  const { form, onSignUp } = useSignUp();
   const [step, setStep] = useState(0);
 
   const onStepChange = (step: number) => {
     setStep(step);
-  };
-
-  const onSubmit = (data: SignupSchema) => {
-    console.log(data);
   };
 
   return (
@@ -26,7 +23,8 @@ export const SignUp = () => {
       </h3>
       <div className="flex flex-col gap-3 items-center">
         <SignUpForm
-          onSignUp={onSubmit}
+          form={form}
+          onSignUp={onSignUp}
           step={step}
           onStepChange={onStepChange}
         />

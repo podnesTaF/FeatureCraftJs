@@ -1,4 +1,4 @@
-import { SignupSchema, signupSchema } from "@/src/entities/main";
+import { SignupSchema } from "@/src/entities/main";
 import {
   Button,
   Form,
@@ -9,25 +9,22 @@ import {
   FormMessage,
   Input,
 } from "@/src/shared/shadcn";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 type SignUpFormProps = {
   step: number;
   onStepChange: (step: number) => void;
+  form: ReturnType<typeof useForm<SignupSchema>>;
   onSignUp: (data: SignupSchema) => void;
 };
 
 export const SignUpForm = ({
   step,
+  form,
   onStepChange,
   onSignUp,
 }: SignUpFormProps): JSX.Element => {
-  const form = useForm<SignupSchema>({
-    resolver: zodResolver(signupSchema),
-  });
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSignUp)} className="space-y-8 w-full">
@@ -84,7 +81,11 @@ export const SignUpForm = ({
         {step === 1 && (
           <>
             <div className="flex justify-between items-center">
-              <Button onClick={() => onStepChange(0)} variant={"ghost"}>
+              <Button
+                type={"button"}
+                onClick={() => onStepChange(0)}
+                variant={"ghost"}
+              >
                 <ArrowLeft className="w-6 h-6" />
               </Button>
               Set you password
@@ -129,7 +130,15 @@ export const SignUpForm = ({
                 </FormItem>
               )}
             />
-            <Button className="px-3 md:px-5 py-3 lg:py-5 xl:py-6 w-full text-lg">
+            {form.formState.errors.root && (
+              <FormMessage className="text-red-500">
+                {form.formState.errors.root.message}
+              </FormMessage>
+            )}
+            <Button
+              type="submit"
+              className="px-3 md:px-5 py-3 lg:py-5 xl:py-6 w-full text-lg"
+            >
               Register
             </Button>
           </>
