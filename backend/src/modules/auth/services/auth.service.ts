@@ -20,10 +20,20 @@ export class AuthService extends AbstractAuthService {
   async register(dto: CreateUserDto) {
     const encryptedPassword = await bcrypt.hash(dto.password, 12);
 
+    console.log('encryptedPassword', encryptedPassword);
     const userData = await this.userService.create({
       ...dto,
       password: encryptedPassword,
     });
+
+    if (userData) {
+      const token = this.login(userData);
+
+      return {
+        ...userData,
+        token,
+      };
+    }
 
     return {
       ...userData,

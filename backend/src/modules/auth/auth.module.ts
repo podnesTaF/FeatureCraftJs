@@ -21,6 +21,7 @@ import { LocalStrategy } from './strategies/local.strategy';
       useFactory: async () => {
         return {
           secret: process.env.JWT_SECRET,
+          httpOnly: true,
           signOptions: { expiresIn: '120h' },
         };
       },
