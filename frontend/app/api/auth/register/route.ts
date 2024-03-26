@@ -1,22 +1,25 @@
-import {
-  AuthenticatedUser,
-  CreateUserDto,
-} from "@/src/entities/main/auth/model";
+import { AuthenticatedUser } from "@/src/entities/main/auth/model";
 import axios from "axios";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
   try {
-    const createUserDto: CreateUserDto = await req.body();
+    const registerDto = await req.json();
     const { data } = await axios.post<AuthenticatedUser>(
       `${process.env.API_URL}/auth/register`,
-      createUserDto
+      registerDto
     );
 
     const cookieStore = cookies();
 
-    cookieStore.set("global-auth-token", data.token, {
+    if (!data.token)
+      return NextResponse.json(
+        { message: "An error occurred" },
+        { status: 500 }
+      );
+
+    cookieStore.set(process.env.AUTH_COOKIE_NAME || "", data.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       maxAge: 60 * 60 * 24 * 7,
@@ -24,9 +27,14 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       path: "/",
     });
 
-    Response.json(data);
+    return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
     const { response } = error;
-    Response.json(response?.data || { message: "An error occurred" });
+    return NextResponse.json(
+      response?.data || { message: "An error occurred" },
+      {
+        status: 500,
+      }
+    );
   }
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { AuthenticatedUser } from "@/src/entities/main/auth/model";
+import { useAuth } from "@/src/features/main";
 import {
   Button,
   Input,
@@ -16,12 +18,21 @@ import { GitHubLogoIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { AlignLeft, Moon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
+import UserMenu from "./UserMenu";
 import { getMenuItems } from "./menu-items.utils";
 
-export const Header = () => {
+export const Header = ({ user }: { user: AuthenticatedUser | null }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { login } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      login(user);
+    }
+  }, [user, login]);
+
   return (
     <>
       <div className="flex justify-between fixed top-0 left-0 w-full px-3 py-2 z-40 bg-white/50 backdrop-blur">
@@ -112,33 +123,6 @@ export const Header = () => {
           </NavigationMenu>
         </div>
         <div className="flex gap-2 items-center">
-          <div className="sm:flex-1 max-w-2xl relative">
-            <MagnifyingGlassIcon className="w-6 h-6 absolute left-2 top-1/2 -translate-y-1/2 text-primary hidden sm:block" />
-            <Input
-              placeholder="Search for a Feature"
-              color="secondary"
-              className="rounded-full h-10 pr-4 pl-9  hidden sm:block w-full bg-gray-100 placeholder:text-primary font-medium"
-            />
-          </div>
-          <Link
-            className=" justify-start rounded-full"
-            href={"/auth/login"}
-            legacyBehavior
-            passHref
-          >
-            <Button variant={"ghost"} className={`rounded-full justify-start`}>
-              Login
-            </Button>
-          </Link>
-
-          <Link
-            className=" justify-start"
-            href={"/auth/signup"}
-            legacyBehavior
-            passHref
-          >
-            <Button className={`!rounded-full justify-start`}>Signup</Button>
-          </Link>
           <IconButton className="sm:hidden">
             <MagnifyingGlassIcon className="w-6 h-6" />
           </IconButton>
@@ -148,6 +132,43 @@ export const Header = () => {
           <IconButton>
             <GitHubLogoIcon className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
           </IconButton>
+          <div className="sm:flex-1 max-w-2xl relative">
+            <MagnifyingGlassIcon className="w-6 h-6 absolute left-2 top-1/2 -translate-y-1/2 text-primary hidden sm:block" />
+            <Input
+              placeholder="Search for a Feature"
+              color="secondary"
+              className="rounded-full h-10 pr-4 pl-9  hidden sm:block w-full bg-gray-100 placeholder:text-primary font-medium"
+            />
+          </div>
+          {user ? (
+            <UserMenu user={user} />
+          ) : (
+            <>
+              <Link
+                className=" justify-start rounded-full"
+                href={"/auth/login"}
+                legacyBehavior
+                passHref
+              >
+                <Button
+                  variant={"ghost"}
+                  className={`rounded-full justify-start`}
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link
+                className=" justify-start"
+                href={"/auth/signup"}
+                legacyBehavior
+                passHref
+              >
+                <Button className={`!rounded-full justify-start`}>
+                  Signup
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <MobileMenu open={isMobileMenuOpen} />

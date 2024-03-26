@@ -10,18 +10,23 @@ export class AuthApi {
   }
 
   async login(credentials: { email?: string; password?: string }) {
-    const { data } = await axios.post<{
-      token: string;
-      user: AuthenticatedUser;
-    }>("api/auth/login", credentials);
+    const { data } = await axios.post<AuthenticatedUser>(
+      `/api/auth/login`,
+      credentials
+    );
     return data;
   }
 
   async register(dto: CreateUserDto) {
-    const { data } = await axios.post<AuthenticatedUser & { token: string }>(
-      "http://localhost:3000/api/auth/register",
+    const { data } = await axios.post<AuthenticatedUser>(
+      "/api/auth/register",
       dto
     );
+    return data;
+  }
+
+  async logout() {
+    const { data } = await axios.post(`/api/auth/logout`);
     return data;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { EmailLoginSchema, emailLoginSchema } from "@/src/entities/main";
+import { EmailLoginSchema } from "@/src/entities/main";
 import {
   Button,
   Form,
@@ -11,13 +11,15 @@ import {
   FormMessage,
   Input,
 } from "@/src/shared/shadcn";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const EmailLoginForm = ({ onSignIn }: { onSignIn: any }) => {
-  const form = useForm<EmailLoginSchema>({
-    resolver: zodResolver(emailLoginSchema),
-  });
+const EmailLoginForm = ({
+  onSignIn,
+  form,
+}: {
+  onSignIn: any;
+  form: ReturnType<typeof useForm<EmailLoginSchema>>;
+}) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSignIn)} className="space-y-8">
@@ -61,6 +63,11 @@ const EmailLoginForm = ({ onSignIn }: { onSignIn: any }) => {
             </FormItem>
           )}
         />
+        {form.formState.errors.root && (
+          <FormMessage className="text-red-500">
+            {form.formState.errors.root.message}
+          </FormMessage>
+        )}
         <Button className="px-3 md:px-5 py-3 lg:py-5 xl:py-6 w-full text-lg">
           Login
         </Button>

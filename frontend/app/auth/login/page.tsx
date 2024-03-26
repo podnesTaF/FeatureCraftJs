@@ -1,6 +1,6 @@
 import { Login } from "@/src/pages/auth/login/LoginPage";
 
-const LoginPage = () => {
+const LoginPage = async () => {
   return <Login />;
 };
 

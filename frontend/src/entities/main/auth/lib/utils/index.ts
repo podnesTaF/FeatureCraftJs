@@ -1,0 +1,1 @@
+export { getServerSessionData } from "./getSessionData";

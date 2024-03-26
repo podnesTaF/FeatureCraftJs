@@ -1,6 +1,6 @@
 import { SignUp } from "@/src/pages/auth/signup/SignUp";
 
-const SignUpPage = () => {
+const SignUpPage = async () => {
   return <SignUp />;
 };
 
