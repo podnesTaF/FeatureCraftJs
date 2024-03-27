@@ -2,8 +2,14 @@ import { Button } from "@/src/shared/shadcn";
 import Image from "next/image";
 
 export const GoogleSignInButton = ({ title }: { title: string }) => {
+  const handleOauth = async (event: any) => {
+    event.preventDefault();
+    window.location.href = `${process.env.API_URL}/auth/google/callback`;
+  };
+
   return (
     <Button
+      onClick={handleOauth}
       type={"button"}
       className="px-3 md:px-5 py-3 lg:py-5 xl:py-7  bg-white hover:bg-gray-50 shadow-md w-full border border-gray-50"
     >

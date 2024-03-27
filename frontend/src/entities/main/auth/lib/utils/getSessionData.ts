@@ -1,5 +1,4 @@
 "use server";
-
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { AuthenticatedUser } from "../../model";

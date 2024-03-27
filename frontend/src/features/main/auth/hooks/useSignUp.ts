@@ -30,7 +30,6 @@ export const useSignUp = () => {
     try {
       const authApi = new AuthApi();
       const data = await authApi.register(values);
-
       if (!data) throw new Error("An error occurred while registering user");
       login(data);
       window.location.href = "/";
