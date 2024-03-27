@@ -46,6 +46,7 @@ export class UserService {
     const role = await this.roleService.findByName(roleName);
     const userRole = await this.userRoleService.createUserRole({
       roleId: role.id,
+      role: role,
       userId,
     });
     return userRole;

@@ -33,7 +33,7 @@ export abstract class AbstractAuthService {
     return this.jwtService.sign(data);
   }
   getRoles(roles: UserRole[]) {
-    return roles.map((userRole) => ({
+    return roles?.map((userRole) => ({
       id: userRole.role.id,
       name: userRole.role.name,
       active: userRole.active,

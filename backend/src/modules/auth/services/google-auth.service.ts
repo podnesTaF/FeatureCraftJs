@@ -14,6 +14,37 @@ export class GoogleAuthService extends AbstractAuthService {
     super(jwtService);
   }
 
+  async oAuthLogin({
+    email,
+    fullName,
+  }: {
+    provider: string;
+    providerId: string;
+    accessToken: string;
+    email: string;
+    fullName: string;
+    picture: string;
+  }) {
+    if (!email) {
+      throw new Error('User not found!!!');
+    }
+    const userRecord = await this.userService.findByCond({
+      email,
+    });
+
+    if (userRecord) {
+      return this.login(userRecord);
+    }
+
+    const user = await this.userService.create({
+      email,
+      fullName,
+      emailVerified: true,
+    });
+
+    return this.login(user);
+  }
+
   async register(dto: RegisterWithGoogleDto) {
     const userProfile = await this.validateGoogleToken(dto.id_token);
 
