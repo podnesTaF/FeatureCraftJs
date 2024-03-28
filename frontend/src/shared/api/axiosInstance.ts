@@ -1,9 +1,7 @@
 import axios from "axios";
-import { NextApiRequest } from "next";
 import { baseURL } from "../constants";
-import { getTokenFromServerSideCookie } from "../lib";
 
-export const createApiInstance = (req?: NextApiRequest) => {
+export const createApiInstance = (token?: string) => {
   const instance = axios.create({
     baseURL,
     headers: {
@@ -11,9 +9,7 @@ export const createApiInstance = (req?: NextApiRequest) => {
     },
   });
 
-  if (req) {
-    // Server-side logic
-    const token: string | null = getTokenFromServerSideCookie(req);
+  if (token) {
     if (token) {
       instance.interceptors.request.use(
         (config: any) => {

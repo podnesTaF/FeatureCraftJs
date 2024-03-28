@@ -2,8 +2,13 @@ import { Button } from "@/src/shared/shadcn";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export const GitHubSignInButton = ({ title }: { title: string }) => {
+  const handleOauth = async (event: any) => {
+    event.preventDefault();
+    window.location.href = `${process.env.API_URL}/auth/github/callback`;
+  };
   return (
     <Button
+      onClick={handleOauth}
       type={"button"}
       className="px-3 md:px-5 py-3 lg:py-5 xl:py-7 w-full"
     >

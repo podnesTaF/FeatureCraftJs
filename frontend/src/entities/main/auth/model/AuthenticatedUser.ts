@@ -1,7 +1,7 @@
 export type AuthenticatedUser = {
   id: number;
   fullName: string;
-  email: string;
+  email?: string;
   roles: RequestRole[];
   imageName: string;
   token: string;

@@ -14,11 +14,6 @@ export async function POST(req: Request) {
       path: "/",
     });
 
-    console.log(
-      "cookie set",
-      cookies().get(process.env.AUTH_COOKIE_NAME || "")
-    );
-
     return NextResponse.json(
       { data: "success" },
       {

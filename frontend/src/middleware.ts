@@ -15,6 +15,7 @@ export async function middleware(request: NextRequest) {
     const token = url.searchParams.get("token");
 
     if (token && token.length > 0) {
+      // Remove token from URL
       url.searchParams.delete("token");
       changed = true;
     }
