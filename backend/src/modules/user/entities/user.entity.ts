@@ -10,8 +10,8 @@ export class User {
   @Column()
   fullName: string;
 
-  @Column({ unique: true })
-  email: string;
+  @Column({ nullable: true })
+  email?: string;
 
   @Column({ nullable: true })
   password?: string;
@@ -21,6 +21,9 @@ export class User {
 
   @Column({ default: false })
   emailVerified: boolean;
+
+  @Column({ nullable: true })
+  githubId?: string;
 
   @OneToMany(() => UserRole, (userRole) => userRole.user)
   roles: UserRole[];

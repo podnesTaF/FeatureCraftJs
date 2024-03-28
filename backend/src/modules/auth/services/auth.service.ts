@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import sgMail from '@sendgrid/mail';
 import * as bcrypt from 'bcrypt';
+import { AuthenticatedUser } from 'src/modules/user/decorators/user.decorator';
 import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
 import { User } from 'src/modules/user/entities/user.entity';
 import { UserService } from 'src/modules/user/user.service';
@@ -58,5 +59,21 @@ export class AuthService extends AbstractAuthService {
       }
     }
     return null;
+  }
+
+  async setEmailForUser(user: AuthenticatedUser, email: string) {
+    const userRecord = await this.userService.findByCond({
+      id: user.id,
+    });
+
+    if (!userRecord.email) {
+      const updatedUser = await this.userService.updateProfileData(
+        userRecord.id,
+        { email },
+      );
+      return this.login(updatedUser);
+    }
+
+    return this.login(userRecord);
   }
 }

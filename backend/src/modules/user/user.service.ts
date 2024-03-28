@@ -7,7 +7,11 @@ import { OneTimeTokenService } from '../ott/ott.service';
 import { RoleService } from '../role/services/role.service';
 import { UserRoleService } from '../role/services/user-role.service';
 import { AuthenticatedUser } from './decorators/user.decorator';
-import { CreateUserDto, CreateUserWithGoogle } from './dto/create-user.dto';
+import {
+  CreaetUserWithGithubDto,
+  CreateUserDto,
+  CreateUserWithGoogle,
+} from './dto/create-user.dto';
 import { UpdateUserDtoWithImages } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { getVerificationLetterTemplate } from './utils/getVerificationTemplate';
@@ -23,7 +27,9 @@ export class UserService {
     protected readonly userRoleService: UserRoleService,
   ) {}
 
-  async create(dto: CreateUserDto | CreateUserWithGoogle): Promise<User> {
+  async create(
+    dto: CreateUserDto | CreateUserWithGoogle | CreaetUserWithGithubDto,
+  ): Promise<User> {
     await this.isDuplicateEmail(dto.email);
     const user = await this.repository.save(dto);
     const userRole = await this.createRoleForUser(user.id, 'user');
@@ -33,6 +39,7 @@ export class UserService {
   }
 
   async isDuplicateEmail(email: string) {
+    if (!email) return false;
     const isDuplicate = await this.repository.findOne({
       where: [{ email: email }],
     });
@@ -159,6 +166,13 @@ export class UserService {
     }
 
     user.fullName = dto.fullName || user.fullName;
+
+    if (dto.email) {
+      await this.isDuplicateEmail(dto.email);
+
+      user.email = dto.email;
+      user.emailVerified = false;
+    }
 
     return this.repository.save(user);
   }

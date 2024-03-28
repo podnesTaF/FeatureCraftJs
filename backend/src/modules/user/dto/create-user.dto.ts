@@ -29,3 +29,14 @@ export class CreateUserWithGoogle extends CreateUserDto {
   @IsBoolean()
   emailVerified: boolean;
 }
+
+export class CreaetUserWithGithubDto extends CreateUserDto {
+  @IsOptional()
+  email: string;
+
+  @IsString()
+  githubId: string;
+
+  @IsBoolean()
+  emailVerified: boolean;
+}
