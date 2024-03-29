@@ -21,7 +21,7 @@ export default async function RootLayout({
       <body className={GeistSans.className}>
         <Providers>
           <Header user={user} />
-          {children}
+          <div className="mt-16">{children}</div>
         </Providers>
       </body>
     </html>
