@@ -1,4 +1,6 @@
-import { sideBarNavContent } from "@/src/features/main";
+"use client";
+
+import { DocsSidebarNav, sideBarNavContent } from "@/src/features/main";
 
 interface DocsLayoutProps {
   children: React.ReactNode;
