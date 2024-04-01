@@ -1,9 +1,7 @@
+import { cn } from "@/src/shared/lib/utils";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
-import * as React from "react";
-
-import { cn } from "@/src/shared/lib/utils";
-import { Callout } from "./Callout";
+import { Callout } from ".";
 import { MdxCard } from "./MdxCard";
 
 const components = {

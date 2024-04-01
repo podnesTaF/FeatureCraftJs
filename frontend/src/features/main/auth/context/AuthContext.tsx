@@ -1,3 +1,5 @@
+"use client";
+
 import { AuthenticatedUser } from "@/src/entities/main/auth/model";
 import { createContext, ReactNode, useContext, useState } from "react";
 

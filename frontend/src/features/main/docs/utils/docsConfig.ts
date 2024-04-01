@@ -10,7 +10,7 @@ export const sideBarNavContent: SidebarNavItem[] = [
       },
       {
         title: "Test Users",
-        href: "/docs/text-users",
+        href: "/docs/test-users",
       },
       {
         title: "Pattern: FSD",

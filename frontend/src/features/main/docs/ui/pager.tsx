@@ -1,8 +1,11 @@
+"use client";
+
+import { Doc } from "contentlayer/generated";
+import Link from "next/link";
+
 import { cn } from "@/src/shared/lib/utils";
 import { buttonVariants } from "@/src/shared/shadcn";
-import { Doc } from "contentlayer/generated";
-import { SquareChevronLeft, SquareChevronRight } from "lucide-react";
-import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { sideBarNavContent } from "..";
 
 interface DocsPagerProps {
@@ -23,7 +26,7 @@ export function DocsPager({ doc }: DocsPagerProps) {
           href={pager.prev.href}
           className={cn(buttonVariants({ variant: "ghost" }))}
         >
-          <SquareChevronLeft className="mr-2 h-4 w-4" />
+          <ChevronRight className="mr-2 h-4 w-4" />
           {pager.prev.title}
         </Link>
       )}
@@ -33,7 +36,7 @@ export function DocsPager({ doc }: DocsPagerProps) {
           className={cn(buttonVariants({ variant: "ghost" }), "ml-auto")}
         >
           {pager.next.title}
-          <SquareChevronRight className="ml-2 h-4 w-4" />
+          <ChevronLeft className="ml-2 h-4 w-4" />
         </Link>
       )}
     </div>
