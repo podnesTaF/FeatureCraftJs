@@ -12,7 +12,14 @@ export default function Home() {
             width={700}
             height={220}
             alt="feature craft js"
-            className="h-auto w-full md:w-1/2"
+            className="h-auto w-full md:w-1/2 dark:hidden block transition-all"
+          />
+          <Image
+            src={"/logo/logo-main-dark.svg"}
+            width={700}
+            height={220}
+            alt="feature craft js"
+            className="h-auto w-full md:w-1/2 hidden dark:block transition-all"
           />
           <h3 className="font-semibold text-3xl xl:text-5xl 2xl:text-6xl max-w-[75%] lg:max-w-[60%] text-center">
             <span className="text-primary-blue">One</span> Feature at a{" "}

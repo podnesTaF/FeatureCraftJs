@@ -23,7 +23,9 @@ const UserMenu = ({ user }: { user: AuthenticatedUser }): JSX.Element => {
       <DropdownMenuTrigger asChild>
         <Avatar>
           <AvatarImage src={user.imageName} alt="@shadcn" />
-          <AvatarFallback>{user.fullName}</AvatarFallback>
+          <AvatarFallback className="dark:bg-white dark:text-black">
+            {user.fullName}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

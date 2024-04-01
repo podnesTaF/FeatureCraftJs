@@ -15,10 +15,12 @@ import {
 } from "@/src/shared/shadcn";
 import IconButton from "@/src/shared/ui/IconButton";
 import { GitHubLogoIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { AlignLeft, Moon } from "lucide-react";
+import { AlignLeft } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ModeToggle } from "../ModeToggle";
 import MobileMenu from "./MobileMenu";
 import UserMenu from "./UserMenu";
 import { getMenuItems } from "./menu-items.utils";
@@ -26,6 +28,7 @@ import { getMenuItems } from "./menu-items.utils";
 export const Header = ({ user }: { user: AuthenticatedUser | null }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { login } = useAuth();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (user) {
@@ -35,7 +38,7 @@ export const Header = ({ user }: { user: AuthenticatedUser | null }) => {
 
   return (
     <>
-      <div className="flex justify-between fixed top-0 left-0 w-full px-3 py-2 z-40 bg-white/50 backdrop-blur">
+      <div className="flex justify-between fixed top-0 left-0 w-full px-3 py-2 z-40 bg-white/50 dark:bg-black/50 backdrop-blur">
         <div className="flex gap-6 items-center flex-[2]">
           <Button
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
@@ -49,14 +52,22 @@ export const Header = ({ user }: { user: AuthenticatedUser | null }) => {
               height={32}
               width={32}
               className="h-6 w-6 2xl:hidden"
-              src={"/logo/logo-short.svg"}
+              src={
+                theme === "light"
+                  ? "/logo/logo-short.svg"
+                  : "/logo/logo-short-dark.svg"
+              }
               alt="Logo"
             />
             <Image
               height={28}
               width={400}
               className="h-6 w-auto hidden 2xl:block"
-              src={"/logo/logo-inline.svg"}
+              src={
+                theme === "light"
+                  ? "/logo/logo-inline.svg"
+                  : "/logo/logo-inline-dark.svg"
+              }
               alt="Logo"
             />
           </Link>
@@ -126,11 +137,9 @@ export const Header = ({ user }: { user: AuthenticatedUser | null }) => {
           <IconButton className="sm:hidden">
             <MagnifyingGlassIcon className="w-6 h-6" />
           </IconButton>
+          <ModeToggle />
           <IconButton>
-            <Moon className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
-          </IconButton>
-          <IconButton>
-            <GitHubLogoIcon className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+            <GitHubLogoIcon className="w-5 h-5 lg:w-6 lg:h-6 text-primary dark:text-white" />
           </IconButton>
           <div className="sm:flex-1 max-w-2xl relative">
             <MagnifyingGlassIcon className="w-6 h-6 absolute left-2 top-1/2 -translate-y-1/2 text-primary hidden sm:block" />

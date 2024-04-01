@@ -19,7 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <Providers>
+        <Providers attribute="class" defaultTheme="system" enableSystem>
           <Header user={user} />
           <div className="mt-16">{children}</div>
         </Providers>
