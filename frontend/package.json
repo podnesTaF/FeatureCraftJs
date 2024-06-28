@@ -59,6 +59,9 @@
   "overrides": {
     "next-contentlayer": {
       "next": "$next"
+    },
+    "contentlayer": {
+      "next": "$next"
     }
   }
 }

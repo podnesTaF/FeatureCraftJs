@@ -3,8 +3,8 @@
 import { Doc } from "contentlayer/generated";
 import Link from "next/link";
 
-import { cn } from "@/src/shared/lib/utils";
 import { buttonVariants } from "@/src/shared/shadcn";
+import { clsx } from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { sideBarNavContent } from "..";
 
@@ -24,7 +24,7 @@ export function DocsPager({ doc }: DocsPagerProps) {
       {pager?.prev && (
         <Link
           href={pager.prev.href}
-          className={cn(buttonVariants({ variant: "ghost" }))}
+          className={clsx(buttonVariants({ variant: "ghost" }))}
         >
           <ChevronRight className="mr-2 h-4 w-4" />
           {pager.prev.title}
@@ -33,7 +33,7 @@ export function DocsPager({ doc }: DocsPagerProps) {
       {pager?.next && (
         <Link
           href={pager.next.href}
-          className={cn(buttonVariants({ variant: "ghost" }), "ml-auto")}
+          className={clsx(buttonVariants({ variant: "ghost" }), "ml-auto")}
         >
           {pager.next.title}
           <ChevronLeft className="ml-2 h-4 w-4" />
